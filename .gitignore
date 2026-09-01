@@ -34,6 +34,10 @@ data/
 raw/
 reference_db/
 
+# Generated post-taxonomy ecology outputs
+ecology/
+results/ecology/
+
 # Python
 __pycache__/
 *.pyc

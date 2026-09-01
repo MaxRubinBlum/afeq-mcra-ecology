@@ -2,9 +2,9 @@
 
 Reproducible workflow for the Afeq wetland **mcrA** amplicon project.
 
-This repository documents the analysis from raw paired-end FASTQ files to ASVs, taxonomy, targeted phylogenetic refinement, and ecology-ready tables. It is written for a student who is comfortable with basic biology but may be new to command-line bioinformatics.
+This repository documents the analysis from raw paired-end FASTQ files to ASVs, taxonomy, targeted phylogenetic refinement, and ecology-ready analysis tables. It is written for a student who is comfortable with basic biology but may be new to command-line bioinformatics.
 
-> **Important:** raw FASTQ files, unpublished sample metadata, QIIME artifacts, and large reference databases are intentionally not stored in GitHub. The repository contains the workflow, small summary tables, templates, and reproducible scripts.
+> **Important:** raw FASTQ files, unpublished sample metadata, QIIME artifacts, large reference databases, and generated ecological result files are intentionally not stored in GitHub. The repository contains the workflow, small QC summaries, templates, and reproducible scripts.
 
 ## What this workflow does
 
@@ -20,6 +20,10 @@ This repository documents the analysis from raw paired-end FASTQ files to ASVs, 
 10. Select abundant/divergent ASVs for targeted phylogenetic placement.
 11. Refine important lineages, including ANME-related mcrA clades.
 12. Produce ecology-ready lineage tables for site, depth, season, and geochemical analysis.
+13. Generate descriptive composition and depth-profile figures.
+14. Calculate depth-resolved Shannon diversity at standardized sequencing effort.
+15. Calculate Bray-Curtis dissimilarity, PCoA, PERMANOVA, and PERMDISP.
+16. Generate site-stratified lineage/geochemistry association tables.
 
 ## Start here
 
@@ -39,6 +43,17 @@ If you are new to bioinformatics, read these in order:
 12. [Analysis decisions and current QC](docs/11_analysis_decisions_qc.md)
 13. [Copy-paste run recipe](docs/12_run_recipe.md)
 14. [GitHub workflow](docs/13_github_workflow.md)
+15. [Ecological analysis pipeline](docs/14_ecology_analysis_pipeline.md)
+
+## Ecology analysis layer
+
+After taxonomy and phylogenetic refinement are complete, run the post-taxonomy ecology workflow with:
+
+```bash
+bash scripts/run_ecology_pipeline.sh config/config.sh
+```
+
+The ecology layer is documented in [docs/14_ecology_analysis_pipeline.md](docs/14_ecology_analysis_pipeline.md). The repository documents methods, reasoning, inputs, outputs, and reproducible commands; biological interpretation belongs in reports/manuscripts rather than the pipeline code.
 
 ## Main software
 
@@ -53,6 +68,12 @@ The completed analysis used:
 - MAFFT
 - IQ-TREE 2
 - Python 3
+- pandas
+- NumPy
+- SciPy
+- Matplotlib
+- openpyxl
+- Biopython
 
 The QIIME environment used on the workstation was named:
 
@@ -82,7 +103,6 @@ afeq-mcra-ecology/
 ├── metadata/
 │   └── metadata_template.tsv
 ├── results/
-│   ├── current_findings.md
 │   ├── qc_summary.tsv
 │   └── README.md
 ├── scripts/
@@ -103,7 +123,8 @@ This project is unpublished. Keep the GitHub repository **private** unless the P
 - unpublished full metadata workbooks;
 - `.qza`/`.qzv` files unless there is a deliberate reason;
 - large GTDB or mcrA reference FASTA files;
-- generated alignments and large trees.
+- generated alignments and large trees;
+- generated ecology tables or figures unless deliberately selected for release.
 
 The `.gitignore` supplied here prevents most accidental additions.
 

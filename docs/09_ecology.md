@@ -1,8 +1,10 @@
-# From ASVs to ecological analysis
+# From ASVs to ecology-ready data
 
-## Do not analyse raw GTDB genus labels directly
+This chapter defines the transition from taxonomic/phylogenetic annotation to the ecological analysis layer. It describes data structure and analysis rules only; interpretation belongs in reports and manuscripts, not in the pipeline documentation.
 
-Before ecological analysis, propagate the phylogenetic refinements into an ecology label column. Keep the original GTDB and environmental annotations as separate columns so nothing is lost.
+## Keep annotation evidence separate from ecology labels
+
+Before ecological analysis, propagate the targeted phylogenetic refinements into one harmonized ecology label per ASV. Keep the original GTDB and environmental annotations as separate columns so the source evidence is never lost.
 
 Recommended columns:
 
@@ -15,74 +17,45 @@ GTDB_taxonomy
 GTDB_best_identity
 environmental_taxonomy
 environmental_best_identity
-phylogenetic_assignment
 ```
 
-## Suggested methane-cycling labels
-
-Examples:
-
-```text
-Methanosarcina
-Methanoregula
-Methanobacterium_D
-Methanobacterium_B
-UBA9949
-Methanotrichaceae-related
-ANME-2d / Methanoperedenaceae-related
-ANME-3 / Methanovorans-related
-ANME-2a-related / Methanocomedens
-Unresolved environmental mcrA lineage
-Other mcrA
-```
-
-Do not force every rare ASV to genus level.
+Do not force every rare or divergent ASV to genus level.
 
 ## Sample filtering before ecology
 
-Recommended project-specific rules:
+The project-specific rules implemented in `13_prepare_ecology_tables.py` are:
 
 ```text
-remove controls
-remove control-exclusive ASVs
+remove controls from biological analyses
+remove only ASVs that are exclusive to controls
 remove biological libraries with <1,000 reads
+retain raw ASV counts for all remaining samples and ASVs
 ```
 
-This leaves 145 biological mcrA libraries in the current analysis.
+Do not remove every ASV that occurs in a blank. An ASV shared between a blank and biological libraries remains in the biological table unless a separate contamination analysis justifies another rule.
 
 ## Relative abundance
 
-For descriptive composition plots:
+For descriptive lineage plots:
 
 ```text
-relative abundance = lineage reads / total retained reads in that sample
+relative abundance (%) = lineage reads / total retained reads in that sample × 100
 ```
 
-Always retain the raw counts separately for methods that require counts.
+Always retain the corresponding raw ASV count table. Alpha diversity and any method requiring counts must use counts rather than lineage percentages.
 
-## Initial ecological patterns observed
+## Analysis layers
 
-Current exploratory results indicate strong spatial structure:
+The ecology pipeline separates five tasks:
 
-- EA2 is consistently enriched in `Methanoregula`.
-- EA3 is strongly `Methanosarcina` dominated.
-- EA1 contains the strongest recurrent ANME-2d signal among the EA sites.
-- At EA1, ANME-2d forms narrow depth horizons rather than a monotonic increase with depth.
-- P1 in April also contains a strong ANME-2d signal.
+1. preparation and label harmonization;
+2. descriptive lineage composition and depth profiles;
+3. Shannon alpha diversity from ASV counts;
+4. Bray-Curtis beta diversity with PCoA, PERMANOVA, and PERMDISP;
+5. exploratory lineage/geochemistry association tables.
 
-These patterns should be treated as current descriptive results, not final inferential statistics.
+The complete implementation, reasoning, inputs, outputs, and commands are documented in [14_ecology_analysis_pipeline.md](14_ecology_analysis_pipeline.md).
 
-## Recommended next statistical workflow
+## Reproducibility rule
 
-1. Build sample × lineage and sample × ASV count matrices.
-2. Join only metadata fields with validated sample IDs.
-3. Inspect sequencing depth and zero inflation.
-4. Visualize composition by site × season × depth.
-5. Calculate Bray-Curtis dissimilarity after a justified transformation/normalization.
-6. Test site, season, depth, and their interactions with a design that respects repeated spatial profiles.
-7. Analyse geochemistry with site-stratified models rather than only pooled correlations.
-8. Treat mcrA as a relative/compositional marker unless absolute gene copy measurements are available.
-
-## Interpretation caution
-
-Amplicon relative abundance does not equal metabolic rate. A lineage can be abundant without being active, and primer biases/gene-copy differences can influence relative abundance. Phrase conclusions as community composition unless independent activity measurements support stronger claims.
+Do not edit ecological outputs manually. If a filtering threshold, lineage rule, rarefaction depth, or statistical design changes, change the script/configuration and regenerate the output.

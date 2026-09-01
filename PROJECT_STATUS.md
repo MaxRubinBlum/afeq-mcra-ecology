@@ -13,24 +13,23 @@
 - master ASV annotation;
 - targeted phylogenetic refinement of 287 abundant/divergent ASVs;
 - principal ANME clade assignments;
-- corrected metadata validated for the previously problematic July rows;
-- preliminary mcrA ecological description.
+- corrected metadata validation;
+- ecology-ready ASV/lineage table preparation;
+- descriptive composition and depth-profile scripts;
+- depth-resolved bubble-plot script;
+- repeated-rarefaction Shannon diversity script;
+- Bray-Curtis PCoA + one-factor PERMANOVA/PERMDISP script;
+- lineage/geochemistry Spearman + BH-FDR script.
 
-## Current analysis dataset
+## Current analysis dataset QC
 
 ```text
-14,260 ASVs
+14,260 ASVs before ecology filtering
 150 biological mcrA libraries before depth filtering
 10 controls
 145 biological libraries retained for ecology after <1,000-read filtering
 ```
 
-## Next analysis tasks
+## Analysis documentation
 
-1. Generate final sample × ecology-lineage table.
-2. Build composition overview by site × season.
-3. Build vertical profiles of dominant lineages.
-4. Focus on recurrent ANME-2d depth horizons at EA1.
-5. Integrate methane/sulfate/sulfide metadata with site-stratified analysis.
-6. Add formal beta-diversity / multivariate statistics after the descriptive structure is clear.
-7. Later integrate 16S results as a separate analysis layer.
+The complete post-taxonomy ecology workflow is documented in `docs/14_ecology_analysis_pipeline.md`. Generated ecological result tables and figures should remain outside Git unless deliberately selected for release.
