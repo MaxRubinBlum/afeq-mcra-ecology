@@ -1,0 +1,3 @@
+sample-id	month	site	depth_cm	is-control	methane	sulfate	sulfide	notes
+Jan25-EA1-1	Jan25	EA1		false				
+SepJan-blank1a	control			true				

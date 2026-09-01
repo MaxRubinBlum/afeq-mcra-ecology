@@ -1,0 +1,16 @@
+metric	value	note
+biological_libraries_before_depth_filter	150	controls excluded
+control_libraries	10	blanks and NTCs
+ASVs	14260	merged DADA2 ASVs
+biological_reads	15837298	before biological sample depth filter
+control_reads	685	all controls
+control_ASVs	15	detected in any control
+control_exclusive_ASVs	5	remove from ecology
+control_exclusive_reads	482	reads in those five ASVs
+biological_samples_below_1000_reads	5	remove from ecology
+biological_libraries_for_ecology	145	after <1000-read filter
+GTDB_mapped_full_refs	1316	GTDB R232
+GTDB_MLf_MLr_refs	1021	409-439 bp
+phylogeny_candidate_ASVs	287	HIGH + MEDIUM
+phylogeny_total_tips	1691	ASV + GTDB + environmental
+phylogeny_alignment_bp	417	trimmed alignment

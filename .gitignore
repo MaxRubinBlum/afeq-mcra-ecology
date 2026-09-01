@@ -1,0 +1,46 @@
+# Local config
+config/config.sh
+
+# Raw sequencing
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+
+# QIIME artifacts / visualizations
+*.qza
+*.qzv
+
+# Large sequence/reference outputs
+*.fasta
+*.fa
+*.fna
+*.aln
+*.phy
+*.treefile
+*.contree
+*.mldist
+*.splits.nex
+*.model.gz
+
+# Large tables and workbooks: commit summaries/templates deliberately
+*.xlsx
+*.xls
+*.biom
+
+# Analysis workspaces
+analysis/
+data/
+raw/
+reference_db/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
